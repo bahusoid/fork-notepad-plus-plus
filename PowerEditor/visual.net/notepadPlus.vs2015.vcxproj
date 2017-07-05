@@ -22,29 +22,41 @@
     <ProjectName>Notepad++</ProjectName>
     <ProjectGuid>{FCF60E65-1B78-4D1D-AB59-4FC00AC8C248}</ProjectGuid>
     <RootNamespace>Notepad++</RootNamespace>
-    <Keyword>Win32Proj</Keyword>
+    <Keyword>Win32Proj</Keyword>	
   </PropertyGroup>
-  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />  
+  <PropertyGroup Label="NppSpecifics">
+    <!-- VS 2012 build tools don't support  C++x used in code, so no joy here-->
+    <!-- <NppVsSpecificPlatformToolset Condition="$(VisualStudioVersion) == '11.0'">v110_xp</NppVsSpecificPlatformToolset> -->
+    <!--VS 2013 -->
+    <NppVsSpecificPlatformToolset Condition="$(VisualStudioVersion) == '12.0'">v120_xp</NppVsSpecificPlatformToolset>
+    <!--VS 2017 -->
+    <NppVsSpecificPlatformToolset Condition="$(VisualStudioVersion) == '15.0'">v141_xp</NppVsSpecificPlatformToolset>
+    <!-- Default to VS 2015 -->
+    <NppVsSpecificPlatformToolset Condition="$(NppVsSpecificPlatformToolset) == ''">v140_xp</NppVsSpecificPlatformToolset>
+
+    <ProjectToolVersion Condition="$(VisualStudioVersion) == '15.0'">15.0</ProjectToolVersion>
+  </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Unicode Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
-    <PlatformToolset>v140_xp</PlatformToolset>
+    <PlatformToolset>$(NppVsSpecificPlatformToolset)</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
     <WholeProgramOptimization>true</WholeProgramOptimization>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Unicode Release|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
-    <PlatformToolset>v140_xp</PlatformToolset>
+    <PlatformToolset>$(NppVsSpecificPlatformToolset)</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
     <WholeProgramOptimization>true</WholeProgramOptimization>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
-    <PlatformToolset>v140_xp</PlatformToolset>
+    <PlatformToolset>$(NppVsSpecificPlatformToolset)</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
-    <PlatformToolset>v140_xp</PlatformToolset>
+    <PlatformToolset>$(NppVsSpecificPlatformToolset)</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
