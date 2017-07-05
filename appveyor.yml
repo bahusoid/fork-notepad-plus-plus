@@ -19,11 +19,11 @@ build:
     verbosity: minimal
 
 build_script:
-    - cd c:\projects\notepad-plus-plus\PowerEditor\visual.net\
+    - cd c:\projects\fork-notepad-plus-plus\PowerEditor\visual.net\
     - msbuild notepadPlus.vcxproj /p:configuration="%configuration%" /p:platform="%platform%"
 
 after_build:
-    - cd c:\projects\notepad-plus-plus\
+    - cd c:\projects\fork-notepad-plus-plus\
     - ps: >-
         $nppFileName = "Notepad++.$env:PLATFORM.$env:CONFIGURATION.exe"
 
