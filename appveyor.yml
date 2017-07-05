@@ -1,6 +1,4 @@
 version: 1.0.{build}
-image: Visual Studio 2013
-
 
 clone_depth: 1
 
@@ -21,10 +19,6 @@ build:
     verbosity: minimal
 
 build_script:
-    - cd c:\projects\notepad-plus-plus\scintilla\win32
-    - if "%configuration%"=="Unicode Debug" set scintilla_debug=DEBUG=1
-    - if "%configuration%"=="Unicode Release" set scintilla_debug=
-    - nmake NOBOOST=1 %scintilla_debug% -f scintilla.mak
     - cd c:\projects\notepad-plus-plus\PowerEditor\visual.net\
     - msbuild notepadPlus.vcxproj /p:configuration="%configuration%" /p:platform="%platform%"
 
@@ -48,5 +42,3 @@ after_build:
         if ($env:PLATFORM -eq "Win32" -and $env:CONFIGURATION -eq "Unicode Debug") {
             Push-AppveyorArtifact "PowerEditor\visual.net\Unicode Debug\Notepad++.exe" -FileName "$nppFileName"
         }
-
-        Push-AppveyorArtifact "scintilla\bin\SciLexer.dll" -FileName "SciLexer.$env:PLATFORM.$env:CONFIGURATION.dll"
