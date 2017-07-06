@@ -1,5 +1,17 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup Label="NppSpecifics">
+    <!-- VS 2012 build tools don't support  C++x used in code, so no joy here-->
+    <!-- <NppVsPlatformToolset Condition="$(VisualStudioVersion) == '11.0'">v110_xp</NppVsPlatformToolset> -->
+    <!--VS 2013 -->
+    <NppVsPlatformToolset Condition="$(VisualStudioVersion) == '12.0'">v120_xp</NppVsPlatformToolset>
+    <!--VS 2015 -->
+    <NppVsPlatformToolset Condition="$(VisualStudioVersion) == '14.0'">v140_xp</NppVsPlatformToolset>
+    <!--VS 2017 -->
+    <NppVsPlatformToolset Condition="$(VisualStudioVersion) == '15.0'">v141_xp</NppVsPlatformToolset>
+    <!-- Default to VS 2013. It's for MSBUILD. -->
+    <NppVsPlatformToolset Condition="$(NppVsPlatformToolset) == ''">v120_xp</NppVsPlatformToolset>
+  </PropertyGroup>
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Unicode Debug|Win32">
       <Configuration>Unicode Debug</Configuration>
@@ -22,44 +34,29 @@
     <ProjectName>Notepad++</ProjectName>
     <ProjectGuid>{FCF60E65-1B78-4D1D-AB59-4FC00AC8C248}</ProjectGuid>
     <RootNamespace>Notepad++</RootNamespace>
-    <Keyword>Win32Proj</Keyword>	
+    <Keyword>Win32Proj</Keyword>
   </PropertyGroup>
-  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />  
-  <PropertyGroup Label="NppSpecifics">
-    <!-- VS 2012 build tools don't support  C++x used in code, so no joy here-->
-    <!-- <NppVsSpecificPlatformToolset Condition="$(VisualStudioVersion) == '11.0'">v110_xp</NppVsSpecificPlatformToolset> -->
-    <!--VS 2013 -->
-    <NppVsSpecificPlatformToolset Condition="$(VisualStudioVersion) == '12.0'">v120_xp</NppVsSpecificPlatformToolset>
-    <!--VS 2015 -->
-    <NppVsSpecificPlatformToolset Condition="$(VisualStudioVersion) == '14.0'">v140_xp</NppVsSpecificPlatformToolset>
-    <!--VS 2017 -->
-    <NppVsSpecificPlatformToolset Condition="$(VisualStudioVersion) == '15.0'">v141_xp</NppVsSpecificPlatformToolset>
-    
-    <!-- Default to VS 2013. It's for MS BUILD. -->
-    <NppVsSpecificPlatformToolset Condition="$(NppVsSpecificPlatformToolset) == ''">v120_xp</NppVsSpecificPlatformToolset>
-
-    <!-- <ProjectToolVersion Condition="$(VisualStudioVersion) == '15.0'">15.0</ProjectToolVersion>  -->
-  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Unicode Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
-    <PlatformToolset>$(NppVsSpecificPlatformToolset)</PlatformToolset>
+    <PlatformToolset>$(NppVsPlatformToolset)</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
     <WholeProgramOptimization>true</WholeProgramOptimization>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Unicode Release|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
-    <PlatformToolset>$(NppVsSpecificPlatformToolset)</PlatformToolset>
+    <PlatformToolset>$(NppVsPlatformToolset)</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
     <WholeProgramOptimization>true</WholeProgramOptimization>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
-    <PlatformToolset>$(NppVsSpecificPlatformToolset)</PlatformToolset>
+    <PlatformToolset>$(NppVsPlatformToolset)</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Unicode Debug|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
-    <PlatformToolset>$(NppVsSpecificPlatformToolset)</PlatformToolset>
+    <PlatformToolset>$(NppVsPlatformToolset)</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
@@ -115,7 +112,7 @@
       <BasicRuntimeChecks>UninitializedLocalUsageCheck</BasicRuntimeChecks>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <WarningLevel>Level4</WarningLevel>
-      <TreatWarningAsError>true</TreatWarningAsError>
+      <TreatWarningAsError>false</TreatWarningAsError>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <SmallerTypeCheck>false</SmallerTypeCheck>
@@ -152,7 +149,7 @@
       <BasicRuntimeChecks>UninitializedLocalUsageCheck</BasicRuntimeChecks>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <WarningLevel>Level4</WarningLevel>
-      <TreatWarningAsError>true</TreatWarningAsError>
+      <TreatWarningAsError>false</TreatWarningAsError>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <SmallerTypeCheck>false</SmallerTypeCheck>
@@ -550,7 +547,9 @@ copy ..\src\contextMenu.xml ..\bin64\contextMenu.xml
     <ClInclude Include="..\src\MISC\Common\mutex.h" />
     <ClInclude Include="..\src\MISC\Common\mutex.hxx" />
     <ClInclude Include="..\src\MISC\Common\verifySignedfile.h" />
+    <ClInclude Include="..\src\MISC\md5\md5.h" />
     <ClInclude Include="..\src\MISC\md5\md5Dlgs.h" />
+    <ClInclude Include="..\src\MISC\md5\md5Dlgs_rc.h" />
     <ClInclude Include="..\src\MISC\Process\Processus.h" />
     <ClInclude Include="..\src\WinControls\AboutDlg\AboutDlg.h" />
     <ClInclude Include="..\src\WinControls\AnsiCharPanel\ansiCharPanel.h" />
@@ -585,6 +584,7 @@ copy ..\src\contextMenu.xml ..\bin64\contextMenu.xml
     <ClInclude Include="..\src\ScitillaComponent\DocTabView.h" />
     <ClInclude Include="..\src\WinControls\DocumentMap\documentMap.h" />
     <ClInclude Include="..\src\WinControls\DocumentMap\documentSnapshot.h" />
+    <ClInclude Include="..\src\WinControls\DocumentMap\documentSnapshot_rc.h" />
     <ClInclude Include="..\src\EncodingMapper.h" />
     <ClInclude Include="..\src\WinControls\OpenSaveFileDialog\FileDialog.h" />
     <ClInclude Include="..\src\MISC\FileNameStringSplitter.h" />
